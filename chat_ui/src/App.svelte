@@ -2,9 +2,15 @@
 </style>
 
 <script lang="ts">
-  import Join from './join/Join.svelte'
+    import Join from './chat/Join.svelte'
+    import {chatStore, join, leave} from "./chat/chatStore";
+    import Room from "./chat/Room.svelte";
 </script>
 
 <main>
-  <Join onJoin={name => console.log(name)} />
+    {#if $chatStore.connected}
+        <Room name={$chatStore.name} onLeave={() => chatStore.update(leave)} />
+    {:else}
+        <Join name={$chatStore.name} onJoin={name => chatStore.update((state) => join(state, name))} />
+    {/if}
 </main>
