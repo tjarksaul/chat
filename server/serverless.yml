@@ -1,0 +1,5 @@
+org: tjarksaul
+app: chat
+service: chat
+provider:
+  name: aws
