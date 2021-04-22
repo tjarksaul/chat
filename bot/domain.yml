@@ -1,0 +1,33 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet
+- curse
+#- out_of_scope
+#slots:
+#  email:
+#    type: unfeaturized
+#    influence_conversation: false
+responses:
+  utter_greet:
+  - text: |
+      Hello! How's your day?
+  - text: |
+      Hi! Good to hear from you!
+  - text: |
+      Hello there beautiful
+  utter_reply_curse:
+  - text: |
+      Do you kiss your mother with that mouth??
+  - text: |
+      That's kind of rude. Try to be more polite with others :)
+actions:
+- '...'
+- utter_greet
+- utter_reply_curse
+#forms:
+#  newsletter_form:
+#    email:
+#    - type: from_text

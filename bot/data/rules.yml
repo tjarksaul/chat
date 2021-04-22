@@ -1,0 +1,5 @@
+rules:
+  - rule: reply to curse
+    steps:
+    - intent: curse
+    - action: utter_reply_curse

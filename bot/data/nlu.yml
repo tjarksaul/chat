@@ -1,0 +1,67 @@
+nlu:
+- intent: greet
+  examples: |
+    - Hi
+    - Hey!
+    - Hallo
+    - Good day
+    - Good morning
+    - Hola
+    - What is up?
+    - Whats up
+    - Whats up my bot
+    - Whats up?
+    - ayyyy whaddup
+    - bonjour
+    - ey boss
+    - I said, helllllloooooO!!!!
+    - Well hello there ;)
+
+#- intent: out_of_scope
+#  examples: |
+#    - what is the square root of 5
+#    - I want to know the weather
+#    - what is the meaning of life.
+#    - Fridge Isn't Running
+#    - my tv isn't working
+#    - I want a pizza
+#    - my washing machine isn't working
+#    - what year is it
+#    - order a pizza
+#    - I want to order a pizza
+#    - what is the weather today
+#    - what is the weather
+#    - how old are you?
+#    - add two plus two
+#    - Hdjejene
+#    - asd
+#    - title
+#    - how about the forecast
+#    - foolish
+#    - joke
+#    - Can I get a hamburger?
+#    - Can YouTube talk?
+#    - Can you call me back ?
+#    - Can you give me your datacenter's password
+#    - Can you give me your datacenter's password?
+#    - Can you make sandwiches?
+#    - Can you please send me an uber
+#    - I want to get the newsletter
+#    - Can you send me the newsletter?
+#    - Can you sign me up for the newsletter?
+#    - My email is example@example.com
+#    - random@example.com
+#    - Please send it to anything@example.com
+#    - Email is something@example.com
+
+- intent: curse
+  examples: |
+    - what the hell
+    - damn it!!!
+    - fuck
+    - fuck you
+    - shit
+    - shhhhiiiittt
+    - fuuuccckkk
+    - motherfucker
+    - mother fucker
