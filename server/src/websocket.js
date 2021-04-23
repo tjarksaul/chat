@@ -1,9 +1,8 @@
-import { ApiGatewayManagementApi, DynamoDB } from 'aws-sdk'
-
-const apig = new ApiGatewayManagementApi({
+const AWS = require('aws-sdk')
+const apig = new AWS.ApiGatewayManagementApi({
   endpoint: process.env.APIG_ENDPOINT
 })
-const dynamodb = new DynamoDB.DocumentClient()
+const dynamodb = new AWS.DynamoDB.DocumentClient()
 const connectionTable = process.env.CONNECTIONS_TABLE
 
 async function sendMessage(connectionId, body) {
@@ -35,8 +34,8 @@ async function getAllConnections(ExclusiveStartKey) {
   return connections
 }
 
-function parseMessage(message) {
-  const parsedBody = JSON.parse(message)
+function parseMessage(receivedMessage) {
+  const parsedBody = JSON.parse(receivedMessage)
   const { data } = parsedBody
 
   const { name, message } = data
