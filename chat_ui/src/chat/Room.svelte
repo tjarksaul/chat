@@ -11,6 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-left: 5px;
   }
 
   .messages {
@@ -18,6 +19,7 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column-reverse;
+    padding: 0px 10px;
   }
 
   form {

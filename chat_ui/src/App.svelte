@@ -2,7 +2,7 @@
   :global(html),
   :global(body) {
     padding: 0;
-    font-family: 'Share Tech Mono', monospace;
+    font-family: 'Comic Sans MS', 'JetBrains Mono', monospace;
   }
 
   :global(button),
@@ -34,7 +34,7 @@
 
 <svelte:head>
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
 </svelte:head>
 
 <main>
