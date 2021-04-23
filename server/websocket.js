@@ -1,30 +1,108 @@
-//Handler for websocket.
-//Serverless will deploy this as a lambda function
-//Serverless config should be defined to run the "handler" func here, and route for different cases.
-//stolen from: https://blog.neverendingqs.com/2019/07/01/serverless-websocket-example.html
+const AWS = require('aws-sdk')
+const apig = new AWS.ApiGatewayManagementApi({
+  endpoint: process.env.APIG_ENDPOINT
+})
+const dynamodb = new AWS.DynamoDB.DocumentClient()
 
-exports.handler = async function(event, context) {
-  const { requestContext: { routeKey }} = event;
-  switch(routeKey) {
+const connectionTable = process.env.CONNECTIONS_TABLE
+
+async function sendMessage(connectionId, body) {
+  try {
+    await apig.postToConnection({
+      ConnectionId: connectionId,
+      Data: body
+    }).promise()
+  } catch (err) {
+    // Ignore if connection no longer exists
+    if (err.statusCode !== 400 && err.statusCode !== 410) {
+      throw err
+    }
+  }
+}
+
+async function getAllConnections(ExclusiveStartKey) {
+  const { Items, LastEvaluatedKey } = await dynamodb.scan({
+    TableName: connectionTable,
+    AttributesToGet: ['connectionId'],
+    ExclusiveStartKey
+  }).promise()
+
+  const connections = Items.map(({ connectionId }) => connectionId)
+  if (LastEvaluatedKey) {
+    connections.push(...await getAllConnections(LastEvaluatedKey))
+  }
+
+  return connections
+}
+
+function parseMessage(receivedMessage) {
+  const parsedBody = JSON.parse(receivedMessage)
+  const { data } = parsedBody
+
+  const { name, message } = data
+  return JSON.stringify({ name, message })
+}
+
+async function messageHandler(message) {
+  const sendData = parseMessage(message)
+
+  const connections = await getAllConnections()
+  await Promise.all(
+    connections.map(connectionId => sendMessage(connectionId, sendData))
+  )
+}
+
+async function saveConnectionId(connectionId) {
+  await dynamodb.put({
+    TableName: connectionTable,
+    Item: {
+      connectionId,
+      // Expire the connection an hour later. This is optional, but recommended.
+      // You will have to decide how often to time out and/or refresh the ttl.
+      ttl: parseInt((Date.now() / 1000) + 3600)
+    }
+  }).promise()
+}
+
+async function deleteConnectionId(connectionId) {
+  await dynamodb.delete({
+    TableName: connectionTable,
+    Key: { connectionId }
+  }).promise()
+}
+
+async function refreshConnectionId(connectionId) {
+
+}
+
+exports.handler = async function (event, context) {
+  console.log("EVENT: \n" + JSON.stringify(event, null, 2))
+
+  const { body, requestContext: { routeKey, connectionId } } = event
+
+  switch (routeKey) {
     case '$connect':
-      ...
-      break;
+      // store connection in db
+      saveConnectionId(connectionId)
+      break
 
     case '$disconnect':
-      ...
-      break;
+      // remove connection from db
+      deleteConnectionId(connectionId)
+      break
 
-    case 'routeA':
-      ...
-      break;
+    case 'postMessage':
+      // post message to all conns in db
+      await messageHandler(body)
+      break
 
-    case '$default':
-    default:
-      ...
+    case 'keepAlive':
+      await saveConnectionId(connectionId)
+      break
   }
 
   // Return a 200 status to tell API Gateway the message was processed
   // successfully.
   // Otherwise, API Gateway will return a 500 to the client.
-  return { statusCode: 200 };
+  return { statusCode: 200 }
 }
