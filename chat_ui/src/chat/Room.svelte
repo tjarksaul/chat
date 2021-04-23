@@ -1,3 +1,34 @@
+<style>
+  .room {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .top-bar {
+    border-bottom: 1px gray solid;
+    background-color: #59becc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  form {
+    display: flex;
+  }
+
+  input {
+    flex-grow: 1;
+  }
+</style>
+
 <script lang="ts">
   import type { Message } from './message'
 
@@ -15,20 +46,32 @@
   }
 </script>
 
-<div>
-  {#each messages as message}
-    <p>
-      <strong>{message.name}</strong>: {message.text}
-    </p>
-  {/each}
-</div>
+<div class="room">
 
-<p>Name: {name}</p>
+  <div class="top-bar">
+    <div>
+      Connected as: <strong>{name}</strong>
+    </div>
+    <div>
+      <button on:click={onLeave}>Leave</button>
+    </div>
+  </div>
 
-<form on:submit={onSubmit}>
-  <input type="text" bind:value={text}>
-  <button type="submit">Send</button>
-</form>
-<div>
-  <button on:click={onLeave}>Leave</button>
+  <div class="messages">
+    <div>
+      {#each messages as message}
+        <p>
+          <strong>{message.name}</strong>: {message.text}
+        </p>
+      {/each}
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <form on:submit={onSubmit}>
+      <input type="text" placeholder="Your message" bind:value={text}>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
 </div>
