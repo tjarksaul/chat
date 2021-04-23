@@ -12,7 +12,6 @@ async function sendMessage(connectionId, body) {
       Data: body
     }).promise()
   } catch (err) {
-    // Ignore if connection no longer exists
     if (err.statusCode !== 400 && err.statusCode !== 410) {
       throw err
     }
@@ -70,7 +69,7 @@ async function deleteConnectionId(connectionId) {
   }).promise()
 }
 
-export async function handler (event) {
+exports.handler = async function (event) {
   const { body, requestContext: { routeKey, connectionId } } = event
 
   switch (routeKey) {
