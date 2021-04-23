@@ -5,3 +5,21 @@ A bot powered by Rasa Open source that detects bad language used in conversation
 ## Docs
 
 Please refer to rasa docs https://rasa.com/docs/rasa/
+
+## TL;DR
+
+### Install dependencies
+
+`pip install -r requirements.txt`
+
+### Train
+
+`rasa train`
+
+### Run tests
+
+`rasa test`
+
+### Test manually with CLI
+
+`rasa shell`

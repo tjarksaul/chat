@@ -1,3 +1,4 @@
+version: '2.0'
 nlu:
 - intent: greet
   examples: |
@@ -16,43 +17,107 @@ nlu:
     - ey boss
     - I said, helllllloooooO!!!!
     - Well hello there ;)
+    - hi bot
+    - hello you
+    - hello ai
 
-#- intent: out_of_scope
-#  examples: |
-#    - what is the square root of 5
-#    - I want to know the weather
-#    - what is the meaning of life.
-#    - Fridge Isn't Running
-#    - my tv isn't working
-#    - I want a pizza
-#    - my washing machine isn't working
-#    - what year is it
-#    - order a pizza
-#    - I want to order a pizza
-#    - what is the weather today
-#    - what is the weather
-#    - how old are you?
-#    - add two plus two
-#    - Hdjejene
-#    - asd
-#    - title
-#    - how about the forecast
-#    - foolish
-#    - joke
-#    - Can I get a hamburger?
-#    - Can YouTube talk?
-#    - Can you call me back ?
-#    - Can you give me your datacenter's password
-#    - Can you give me your datacenter's password?
-#    - Can you make sandwiches?
-#    - Can you please send me an uber
-#    - I want to get the newsletter
-#    - Can you send me the newsletter?
-#    - Can you sign me up for the newsletter?
-#    - My email is example@example.com
-#    - random@example.com
-#    - Please send it to anything@example.com
-#    - Email is something@example.com
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    - you are a bot right
+    - aren't you a bot
+    - Are you a bot?
+    - are you a BOT
+    - are you a bot?
+    - are you a chatbot
+    - are you a rasa bot?
+    - are you a real bot?
+    - are you a robot
+    - are you ai
+    - are you artificial
+    - are you artificial intelligence
+    - are you bot
+    - are you bot?
+    - are you rasa bot?
+    - are you real
+    - are you real lol
+    - are you really a bot
+    - are you robot
+    - are you sure that you're a bot?
+    - bot?
+    - cuz you are a bot
+    - i guess you are a chatbot
+    - oh are you chatbot?
+    - tell me, are you a bot?
+    - what are you, a bot?
+    - you are a robot
+    - you are ai
+    - you are chatbot
+    - you're a bot
+    - you robo
+    - real bot then?
+    - are you really a bbot?
+
+- intent: out_of_scope
+  examples: |
+    - what is the square root of 5
+    - I want to know the weather
+    - what is the meaning of life.
+    - Fridge Isn't Running
+    - my tv isn't working
+    - I want a pizza
+    - my washing machine isn't working
+    - what year is it
+    - order a pizza
+    - I want to order a pizza
+    - what is the weather today
+    - what is the weather
+    - how old are you?
+    - add two plus two
+    - Hdjejene
+    - asd
+    - ok
+    - all good
+    - alright
+    - all right
+    - all good
+    - title
+    - how about the forecast
+    - foolish
+    - joke
+    - are you kidding me?
+    - is that a joke?
+    - are you serious ?
+    - Can I get a hamburger?
+    - Can YouTube talk?
+    - Can you call me back ?
+    - Can you give me your datacenter's password
+    - Can you give me your datacenter's password?
+    - Can you make sandwiches?
+    - can you be more specific?
+    - Can you please send me an uber
+    - I want to get the newsletter
+    - Can you send me the newsletter?
+    - Can you sign me up for the newsletter?
+    - My email is example@example.com
+    - random@example.com
+    - Please send it to anything@example.com
+    - Email is something@example.com
+    - what a nice surprise
+    - what an insane
+    - that's insane
+    - that is great
+    - let's go
+    - let's do it
+    - what are we doing today?
+    - what happened
+    - that's obvious
+    - it is a mistake
+    - i agree
+    - not happening
 
 - intent: curse
   examples: |
@@ -65,3 +130,12 @@ nlu:
     - fuuuccckkk
     - motherfucker
     - mother fucker
+    - what the hell?
+    - what the fuck
+    - what a piece of shit
+    - i think this is shit
+    - are you fucking kidding me?
+    - are you an idiot?
+    - what an asshole
+    - that is bullshit
+    - can you be more stupid?
