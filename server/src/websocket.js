@@ -83,6 +83,7 @@ exports.handler = async function (event) {
 
     case 'postMessage':
       await messageHandler(body)
+      saveConnectionId(connectionId)
       break
 
     case 'keepAlive':
