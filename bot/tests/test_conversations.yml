@@ -1,0 +1,68 @@
+version: "2.0"
+stories:
+- story: bot challenge
+  steps:
+  - intent: bot_challenge
+    user: |-
+      Are you a bot?
+  - action: utter_iamabot
+
+- story: out of scope
+  steps:
+  - intent: out_of_scope
+    user: |-
+      I want a pizza
+  - action: action_listen
+
+- story: greet then out stay out
+  steps:
+  - intent: greet
+    user: |-
+      Hey there
+  - action: utter_greet
+  - intent: out_of_scope
+    user: |-
+      what are we doing today?
+  - action: action_listen
+
+- story: User says something out of scope
+  steps:
+  - intent: out_of_scope
+    user: |-
+      Can you get me a pizza
+  - action: action_listen
+
+- story: greet then curse
+  steps:
+  - intent: greet
+    user: |-
+      Hey there
+  - action: utter_greet
+  - intent: curse
+    user: |-
+      Fuck off bot
+  - action: utter_reply_curse
+
+- story: greet then challenge
+  steps:
+  - intent: greet
+    user: |-
+      Hi!
+  - action: utter_greet
+  - intent: bot_challenge
+    user: |-
+      what is this? a bot?
+  - action: utter_iamabot
+
+- story: greet and user replies
+  steps:
+  - intent: greet
+    user: |-
+      Hello!
+  - action: utter_greet
+  - intent: greet
+    user: |-
+      hi bot
+  - action: utter_greet
+
+

@@ -1,5 +1,16 @@
+version: '2.0'
 rules:
   - rule: reply to curse
     steps:
     - intent: curse
     - action: utter_reply_curse
+
+  - rule: stay out of the conversation
+    steps:
+      - intent: out_of_scope
+      - action: action_listen
+
+  - rule: answer bot challenge
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
