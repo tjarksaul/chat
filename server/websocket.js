@@ -71,28 +71,19 @@ async function deleteConnectionId(connectionId) {
   }).promise()
 }
 
-async function refreshConnectionId(connectionId) {
-
-}
-
 exports.handler = async function (event, context) {
-  console.log("EVENT: \n" + JSON.stringify(event, null, 2))
-
   const { body, requestContext: { routeKey, connectionId } } = event
 
   switch (routeKey) {
     case '$connect':
-      // store connection in db
       saveConnectionId(connectionId)
       break
 
     case '$disconnect':
-      // remove connection from db
       deleteConnectionId(connectionId)
       break
 
     case 'postMessage':
-      // post message to all conns in db
       await messageHandler(body)
       break
 
