@@ -1,19 +1,28 @@
 import type { Message } from './message'
-import { addMessage } from './chatStore'
 
-const serverUrl = 'wss://otmyj253a4.execute-api.us-east-1.amazonaws.com/dev'
-export const socket = new WebSocket(serverUrl)
+export class API {
+  private socket: WebSocket
+  private onMessageCallback?: (message: Message) => void
 
-socket.addEventListener('message', (event) => {
-  console.log('Message from server ', event.data)
+  constructor(serverUrl: string) {
+    this.socket = new WebSocket(serverUrl)
 
-  const { name, message } = JSON.parse(event.data)
+    this.socket.addEventListener('message', (event) => {
+      console.log('Message from server ', event.data)
 
-  addMessage({ name: name ?? 'Error', text: message })
-})
+      const { name, message } = JSON.parse(event.data)
 
-export function broadcast ({ name, text }: Message): void {
-  const action = { action: 'postMessage', data: { name: name, message: text } }
-  const serializedMessage = JSON.stringify(action)
-  socket.send(serializedMessage)
+      this.onMessageCallback?.({ name,text:  message })
+    })
+  }
+
+  public onMessage(callback: (message: Message) => void) {
+    this.onMessageCallback = callback
+  }
+
+  public broadcast({ name, text }: Message): void {
+    const action = { action: 'postMessage', data: { name: name, message: text } }
+    const serializedMessage = JSON.stringify(action)
+    this.socket.send(serializedMessage)
+  }
 }

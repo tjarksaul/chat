@@ -1,6 +1,6 @@
-import { writable } from 'svelte/store'
+import type { Writable } from 'svelte/store'
 import type { Message } from './message'
-import { broadcast } from './websocket'
+import type { API } from './websocket'
 
 export interface ChatState {
   name: string
@@ -10,35 +10,40 @@ export interface ChatState {
 
 const CHAT_NAME_KEY = 'chat-name'
 
-export const chatStore = writable<ChatState>(getInitialState())
+export class ChatStore {
+  constructor (
+    private api: API,
+    private chatState: Writable<ChatState>,
+  ) {}
 
-export function join (name: string): void {
-  localStorage.setItem(CHAT_NAME_KEY, name)
+  join (name: string): void {
+    localStorage.setItem(CHAT_NAME_KEY, name)
 
-  chatStore.update(state => (
-    { ...state, name, connected: true }
-  ))
+    this.chatState.update(state => (
+      { ...state, name, connected: true }
+    ))
+  }
+
+  leave (): void {
+    localStorage.removeItem(CHAT_NAME_KEY)
+
+    this.chatState.update(state => (
+      { ...state, connected: false }
+    ))
+  }
+
+  addMessage (message: Message) {
+    this.chatState.update(state => (
+      { ...state, messages: [...state.messages, message] }
+    ))
+  }
+
+  sendMessage (message: Message): void {
+    this.api.broadcast(message)
+  }
 }
 
-export function leave (): void {
-  localStorage.removeItem(CHAT_NAME_KEY)
-
-  chatStore.update(state => (
-    { ...state, connected: false }
-  ))
-}
-
-export function addMessage (message: Message) {
-  chatStore.update(state => (
-    { ...state, messages: [...state.messages, message] }
-  ))
-}
-
-export function sendMessage (message: Message): void {
-  broadcast(message)
-}
-
-function getInitialState (): ChatState {
+export function getInitialState (): ChatState {
   const cachedName = localStorage.getItem(CHAT_NAME_KEY)
 
   if (cachedName) {
@@ -55,4 +60,3 @@ function getInitialState (): ChatState {
     }
   }
 }
-
