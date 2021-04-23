@@ -5,19 +5,37 @@
 
   let message: string
 
+  const messages = [
+    {
+      name: 'Geison',
+      text: 'Hello!'
+    },
+    {
+      name: 'Hamid',
+      text: 'Hello, Hello!'
+    },
+  ]
+
   function onSubmit (event) {
     event.preventDefault()
     onSend(message)
   }
 </script>
 
-<p>{name}</p>
+<div>
+  {#each messages as message}
+    <p>
+      <strong>{message.name}</strong>: {message.text}
+    </p>
+  {/each}
+</div>
+
+<p>Name: {name}</p>
+
 <form on:submit={onSubmit}>
-  <p>
-    <input type="text" bind:value={message}>
-    <button type="submit">Send</button>
-  </p>
+  <input type="text" bind:value={message}>
+  <button type="submit">Send</button>
 </form>
-<p>
+<div>
   <button on:click={onLeave}>Leave</button>
-</p>
+</div>

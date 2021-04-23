@@ -5,17 +5,35 @@ export interface ChatState {
   connected: boolean
 }
 
-const emptyState = {
-  name: '',
-  connected: false,
-}
+const CHAT_NAME_KEY = 'chat-name'
 
-export const chatStore = writable<ChatState>(emptyState)
+export const chatStore = writable<ChatState>(getInitialState())
 
 export function join (state: ChatState, name: string): ChatState {
+  localStorage.setItem(CHAT_NAME_KEY, name)
+
   return { ...state, name, connected: true }
 }
 
 export function leave (state: ChatState): ChatState {
+  localStorage.removeItem(CHAT_NAME_KEY)
+
   return { ...state, connected: false }
 }
+
+function getInitialState (): ChatState {
+  const cachedName = localStorage.getItem(CHAT_NAME_KEY)
+
+  if (cachedName) {
+    return {
+      name: cachedName,
+      connected: true,
+    }
+  } else {
+    return {
+      name: '',
+      connected: false,
+    }
+  }
+}
+
