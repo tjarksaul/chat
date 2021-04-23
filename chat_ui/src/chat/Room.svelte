@@ -69,7 +69,7 @@
 
   <div class="bottom-bar">
     <form on:submit={onSubmit}>
-      <input type="text" placeholder="Your message" autofocus={true} bind:value={text}>
+      <input type="text" placeholder="Your message" autofocus bind:value={text}>
       <button type="submit">Send</button>
     </form>
   </div>
