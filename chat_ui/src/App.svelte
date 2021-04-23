@@ -6,7 +6,7 @@
   import type { ChatState } from './chat/chatStore'
   import { ChatStore, getInitialState } from './chat/chatStore'
   import Room from './chat/Room.svelte'
-  import { API } from './chat/websocket'
+  import { API } from './chat/api'
   import type { Writable } from 'svelte/store'
   import { writable } from 'svelte/store'
 
