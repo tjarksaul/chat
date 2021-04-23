@@ -1,6 +1,6 @@
 import type { Writable } from 'svelte/store'
 import type { Message } from './message'
-import type { API } from './websocket'
+import type { API } from './api'
 
 export interface ChatState {
   name: string

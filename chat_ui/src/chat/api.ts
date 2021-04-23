@@ -8,8 +8,6 @@ export class API {
     this.socket = new WebSocket(serverUrl)
 
     this.socket.addEventListener('message', (event) => {
-      console.log('Message from server ', event.data)
-
       const { name, message } = JSON.parse(event.data)
 
       this.onMessageCallback?.({ name,text:  message })
