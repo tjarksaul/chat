@@ -1,8 +1,9 @@
 <script lang="ts">
   export let name: string
-  let message: string
   export let onLeave: () => void
   export let onSend: (message: string) => void
+
+  let message: string
 
   function onSubmit (event) {
     event.preventDefault()
