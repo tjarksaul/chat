@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
 import type { Message } from './message'
+import {broadcast} from "./websocket";
 
 export interface ChatState {
   name: string
@@ -27,10 +28,14 @@ export function leave (): void {
   ))
 }
 
-export function sendMessage (message: Message): void {
+export function addMessage(message: Message) {
   chatStore.update(state => (
-    { ...state, messages: [...state.messages, message] }
+    {...state, messages: [...state.messages, message]}
   ))
+}
+
+export function sendMessage (message: Message): void {
+  broadcast(message)
 }
 
 function getInitialState (): ChatState {
